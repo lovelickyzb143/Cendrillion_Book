@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+:root {
+  --gold: #c9a84c;
+  --gold-light: #f0d080;
+  --gold-dark: #8b6914;
+  --blood-red: #8b0000;
+  --parchment: #e8dcc8;
+  --parchment-dark: #d4c4a0;
+  --ink: #2a1a0e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #1a0a0a 0%, #0d0505 60%, #000 100%);
+}
+
+.flipbook {
+  width: 1000px;
+  height: 600px;
+}
+
+/* ── HARD COVERS ── */
+.flipbook .hard {
+  background: #8b0000 !important;
+  color: var(--gold-light);
+  font-weight: bold;
+  text-align: center;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* Subtle depth on front/back only */
+.cover-front,
+.cover-back {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(255,60,60,0.15) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 70%, rgba(100,0,0,0.3) 0%, transparent 50%),
+    #8b0000 !important;
+}
+
+.inner-blank {
+  background: #8b0000 !important;
+}
+
+.copyright-page,
+.copyright {
+  font-family: 'EB Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(240,208,128,0.6);
+  letter-spacing: 1px;
+}
+
+/* ── CORNER ORNAMENTS ── */
+.corner {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+}
+
+.corner::before,
+.corner::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+}
+
+/* L-shaped bars */
+.corner::before {
+  width: 60px;
+  height: 3px;
+  top: 12px;
+}
+.corner::after {
+  width: 3px;
+  height: 60px;
+  top: 12px;
+}
+
+/* Diamond center */
+.corner-tl { top: 10px; left: 10px; }
+.corner-tl::before { left: 0; }
+.corner-tl::after  { left: 0; }
+
+.corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
+.corner-tr::before { left: 0; }
+.corner-tr::after  { left: 0; }
+
+.corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+.corner-bl::before { left: 0; }
+.corner-bl::after  { left: 0; }
+
+.corner-br { bottom: 10px; right: 10px; transform: scale(-1); }
+.corner-br::before { left: 0; }
+.corner-br::after  { left: 0; }
+
+/* Diamond accent in each corner */
+.corner-tl::before, .corner-tr::before,
+.corner-bl::before, .corner-br::before {
+  box-shadow: 0 0 6px rgba(201,168,76,0.6);
+}
+
+/* Extra corner diamond dot */
+.corner-tl::after { box-shadow: 0 0 6px rgba(201,168,76,0.6); }
+
+/* ── COVER TITLE & TEXT (direct children, no wrapper) ── */
+.cover-front h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--gold-light);
+  text-shadow:
+    0 0 30px rgba(201,168,76,0.5),
+    2px 2px 6px rgba(0,0,0,0.9);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.cover-divider {
+  width: 220px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), rgba(180,30,30,0.8), var(--gold), transparent);
+  margin: 10px 0 6px;
+}
+
+.cover-divider::before {
+  /* content: '✦'; */
+  content: '⌛︎';
+  display: block;
+  text-align: center;
+  color: var(--gold);
+  font-size: 14px;
+  margin-top: -11px;
+  text-shadow: 0 0 8px rgba(201,168,76,0.8);
+}
+
+.subtitle {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.author {
+  font-family: 'EB Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(240,208,128,0.7);
+  letter-spacing: 2px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.cover-back small {
+  font-family: 'EB Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(240,208,128,0.6);
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* ── REGULAR PAGES ── */
+.flipbook .page {
+  /* Aged parchment base */
+  background:
+    /* subtle noise-like gradient for texture */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(160,120,60,0.015) 2px,
+      rgba(160,120,60,0.015) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      rgba(180,140,70,0.01) 3px,
+      rgba(180,140,70,0.01) 6px
+    ),
+    radial-gradient(ellipse at 20% 20%, rgba(255,240,200,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(180,140,80,0.2) 0%, transparent 50%),
+    linear-gradient(160deg, #efe3c5 0%, #e4d4aa 40%, #d8c898 70%, #e2d6b4 100%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Page edge shadow */
+.flipbook .page::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: linear-gradient(to right, rgba(100,70,30,0.15), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Faint aging spots on corners */
+.flipbook .page::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(ellipse at bottom right, rgba(140,100,50,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Inner wrapper for content with proper spacing */
+.page-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  /* Push text away from bottom */
+  padding: 40px 36px 60px 36px;
+}
+
+.page img {
+  width: 65%;
+  max-height: 380px;
+  object-fit: cover;
+  border: 2px solid rgba(139,105,20,0.4);
+  box-shadow:
+    0 4px 16px rgba(80,50,10,0.3),
+    inset 0 0 8px rgba(0,0,0,0.1);
+  border-radius: 2px;
+  /* Slight sepia on images to match parchment feel */
+  filter: sepia(15%) contrast(0.95);
+}
+
+.flipbook .page small {
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.7;
+  letter-spacing: 0.3px;
+  max-width: 85%;
+  /* Bottom breathing room */
+  margin-bottom: 8px;
+}
